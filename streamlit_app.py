@@ -1,6 +1,7 @@
 import streamlit
 import pandas as pd
 import snowflake.connector
+import requests
 
 streamlit.title('Hello World')
 
@@ -19,7 +20,7 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
 
-import requests
+
 
 streamlit.header('Fruityvice Fruit Advice!!')
 fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
@@ -32,7 +33,7 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
 streamlit.dataframe(fruityvice_normalized)
-
+streamlit.stop()
 
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
